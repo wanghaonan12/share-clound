@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.whn.user_service.mapper.ArticleMapper">
+
+    <resultMap id="BaseResultMap" type="com.whn.user_service.domain.Article">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="userId" column="user_id" jdbcType="INTEGER"/>
+            <result property="title" column="title" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="accessoryUrl" column="accessory_url" jdbcType="VARCHAR"/>
+            <result property="content" column="content" jdbcType="VARCHAR"/>
+            <result property="price" column="price" jdbcType="INTEGER"/>
+            <result property="praiseCount" column="praise_count" jdbcType="INTEGER"/>
+            <result property="buyCount" column="buy_count" jdbcType="INTEGER"/>
+            <result property="articleTagId" column="article_tag_id" jdbcType="INTEGER"/>
+            <result property="showCount" column="show_count" jdbcType="INTEGER"/>
+            <result property="share" column="share" jdbcType="VARCHAR"/>
+            <result property="award" column="award" jdbcType="INTEGER"/>
+            <result property="discussCount" column="discuss_count" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,user_id,title,
+        create_time,accessory_url,content,
+        price,praise_count,buy_count,
+        article_tag_id,show_count,share,
+        award,discuss_count
+    </sql>
+</mapper>

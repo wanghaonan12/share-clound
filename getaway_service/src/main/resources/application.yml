@@ -1,0 +1,16 @@
+server:
+  port: 8083
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 173.82.193.76:8848
+        username: nacos
+        password: nacos
+        heart-beat-interval: 5000
+        heart-beat-timeout: 20000
+        namespace: test
+        register-enabled: true
+jwt:
+  secret: abc123123123123123123123123123123123123123
+  expire-time-in-second: 1209600

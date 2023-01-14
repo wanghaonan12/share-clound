@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+<!--    配置静态参数-->
+    <properties>
+        <!--日志输出位置-->
+        <property name="LOG_HOME">/home/log4j2-logs</property>
+    </properties>
+
+    <Appenders>
+        <!-- 将日志输出到控制台-->
+        <Console name="CONSOLE" target="SYSTEM_OUT">
+            <!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
+            <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+            <!--设置日志格式及颜色-->
+            <PatternLayout
+                    pattern="[%style{%d}{bright,green}][%highlight{%p}][%style{%t}{bright,blue}][%style{%C}{bright,yellow}]: %msg%n%style{%throwable}{red}"
+                    disableAnsi="false" noConsoleNoAnsi="false"/>
+        </Console>
+
+        <!-- 将日志输出到文件-->
+        <RollingFile name="FILE-APPENDER"
+                     fileName="${LOG_HOME}/log4j2-demo.log"
+                     filePattern="${LOG_HOME}/info-%d{yyyy-MM-dd}-%i.log">
+            <!--设置日志格式-->
+            <PatternLayout>
+                <pattern>[%d][%p][%t][%C] %m%n</pattern>
+            </PatternLayout>
+            <Policies>
+                <!--interval属性用来指定多久滚动一次，默认是1， 单位到底是月 天 小时 分钟，根据filePattern配置的日期格式而定，本处的格式为天，则默认为1天-->
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                <!-- 设置日志文件切分参数 -->
+                <SizeBasedTriggeringPolicy size="100 MB"/>
+                <TimeBasedTriggeringPolicy/>
+            </Policies>
+            <Filters>
+                <!-- 只记录info和warn级别信息 -->
+                <!--<ThresholdFilter level="error" onMatch="DENY" onMismatch="NEUTRAL"/>-->
+                <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+            <!--设置最大存档数-->
+            <DefaultRolloverStrategy max="20"/>
+        </RollingFile>
+        <!-- 存储所有error信息 -->
+        <RollingFile name="errorLog"
+                     fileName="${LOG_HOME}/error.log"
+                     filePattern="${LOG_HOME}/error-%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout
+                    pattern="[%style{%d}{bright,green}][%highlight{%p}][%style{%t}{bright,blue}][%style{%C}{bright,yellow}]: %msg%n%style{%throwable}{red}"
+                    disableAnsi="false" noConsoleNoAnsi="false"/>
+            <Policies>
+                <!--interval属性用来指定多久滚动一次，默认是1， 单位到底是月 天 小时 分钟，根据filePattern配置的日期格式而定，本处的格式为天，则默认为1天-->
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                <!--按大小分-->
+                <SizeBasedTriggeringPolicy size="100 MB"/>
+                <TimeBasedTriggeringPolicy/>
+            </Policies>
+            <Filters>
+                <!-- 只记录error级别信息 -->
+                <ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+            <!-- 指定每天的最大压缩包个数，默认7个，超过了会覆盖之前的 -->
+            <DefaultRolloverStrategy max="1000"/>
+        </RollingFile>
+
+    </Appenders>
+
+    <Loggers>
+        <!-- 根日志设置 ref是RollingFile的name配置是否启用-->
+        <Root level="info">
+            <AppenderRef ref="CONSOLE" level="info"/>
+            <AppenderRef ref="FILE-APPENDER" level="info"/>
+            <AppenderRef ref="errorLog" level="error"/>
+        </Root>
+<!--    Logger是配置日志打印的包或是框架，下面的配置是打印spring的日志和myBatisPlus的日志，当然也可以是com.whn.content_service的项目报=包名    -->
+        <!--spring日志-->
+        <Logger name="org.springframework" level="info"/>
+        <!-- mybatisPlus日志 -->
+        <Logger name="com.baomidou.mybatisplus" level="info"/>
+    </Loggers>
+</configuration>

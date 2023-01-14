@@ -1,0 +1,23 @@
+
+server:
+  port: 8081
+logging:
+  config: classpath:log4f2-dev.xml 	#指定配置文件
+spring:
+  application:
+    name: user-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 173.82.193.76:8848
+        username: nacos
+        password: nacos
+        heart-beat-interval: 5000
+        heart-beat-timeout: 20000
+        namespace: test
+        register-enabled: true
+websocket:
+  adminId: 79c308ea630d4e6f8d647e8278962bea
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com/whn/user_service/vo

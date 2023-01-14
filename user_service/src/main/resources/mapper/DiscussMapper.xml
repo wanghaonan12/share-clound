@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.whn.user_service.mapper.DiscussMapper">
+
+    <resultMap id="BaseResultMap" type="com.whn.user_service.domain.Discuss">
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+        <result property="articleId" column="article_id" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="commentDetails" column="comment_details" jdbcType="VARCHAR"/>
+        <result property="praiseCount" column="praise_count" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <resultMap id="discussVo" type="com.whn.user_service.vo.DiscussVo">
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <result property="content" column="comment_details" jdbcType="INTEGER"/>
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+        <result property="avatar" column="avatar" jdbcType="TIMESTAMP"/>
+        <result property="praiseCount" column="praise_count" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id
+        ,user_id,article_id,
+        create_time,comment_details,praise_count
+    </sql>
+    <select id="getDiscussById" resultType="com.whn.user_service.vo.DiscussVo">
+        select d.id, d.comment_details, u.id as user_id, u.avatar, d.praise_count
+        from discuss d
+                 join user u
+                      on d.user_id = u.id
+        where d.article_id = #{articleId}
+        order by d.praise_count desc, d.create_time desc
+            limit #{num}, #{size};
+    </select>
+</mapper>

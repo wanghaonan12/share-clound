@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    nacos:
+      config:
+        server-addr: 173.82.193.76:8848
+        file-extension: yml
+#        prefix:文件名前缀， 默认是spring.application.name
+#        如果没有指定命令空间，则默认命令空间为PUBLIC
+        namespace: test
+#        如果没有配置Group, 则默认值为DEFAULT GROUP
+        group: DEFAULT_GROUP
+#        如果没有配置Group, 则默认值为DEFAULT GROUP
+        timeout: 5000
+#        长轮询超时时间
+        config-long-poll-timeout: 10000
+#        长轮询超时时间
+        config-retry-time: 2000
+#        长轮询最大重试次数
+        max-retry: 3
+#        开启监听和自动刷新
+        refresh-enabled: true
+#        extension-configs:
+#          - dataId: gateway_service.yml
+#            group: DEFAULT_GROUP
+#            refresh: true
