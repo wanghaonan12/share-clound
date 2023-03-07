@@ -1,4 +1,4 @@
-package com.whn.content_service.controller;
+package com.whn.user_service.controller;
 
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -11,7 +11,7 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
  * @Description : description
  * @date : 2023/1/2 13:28
  */
-//@ControllerAdvice
+@ControllerAdvice
 public class UniformExceptionController {
 
 

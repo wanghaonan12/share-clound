@@ -10,6 +10,7 @@ import com.whn.content_service.po.ArticlePo;
 import com.whn.content_service.service.ArticleService;
 import com.whn.content_service.mapper.ArticleMapper;
 import com.whn.content_service.utils.MinIoTemplate;
+import org.apache.commons.lang3.time.StopWatch;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author wangRich
@@ -53,8 +55,12 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article>
 
     @Override
     public Page<Article> findAllArticle(PageQuery pageQuery) {
+        StopWatch started = StopWatch.createStarted();
         Page<Article> page = new Page<>(pageQuery.getPageNum(), pageQuery.getPageSize());
+        started.stop();
+        System.out.println(started.getTime(TimeUnit.MICROSECONDS));
         return page(page);
+
     }
 
     @Override

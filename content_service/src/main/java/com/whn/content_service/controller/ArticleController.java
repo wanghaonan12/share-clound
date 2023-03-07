@@ -64,7 +64,7 @@ public class ArticleController {
     }
 
     @PostMapping("/getByTagId")
-    @ApiOperation("文章获取及模糊查询")
+    @ApiOperation("根据标签获取文章")
     public ResponseResult getByTagId(@RequestBody ArticleTagFindPageQuery pageQuery) {
         return ResponseResult.success(articleService.findAllArticleByArticleTagId(pageQuery));
     }

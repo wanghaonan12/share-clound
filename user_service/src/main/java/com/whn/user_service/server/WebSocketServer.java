@@ -42,6 +42,7 @@ public class WebSocketServer {
      */
     private static final Map<String, Session> sessionMap = new ConcurrentHashMap<>();
 
+    @Value("{websocket.adminId}")
     public String adminId;
 
     /**

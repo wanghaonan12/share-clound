@@ -84,28 +84,4 @@ public class AuthAspect {
         assert attributes != null;
         return attributes.getRequest();
     }
-
-    /**
-     * 通过ProceedingJoinPoint对象的getArgs()我们可以得到传进来的参数。
-     * 通过ProceedingJoinPoint对象的proceed()我们可以得到拿到切面方法返回值的对象。
-     * @param pjp ProceedingJoinPoint
-     * @return
-     * 环绕通知    首先是:包名  然后是: 类名  然后是方法名:方法名   括号内是:参数
-     */
-//    @Around(value = "execution(* com.whn.user_service.controller..*.*(..))")
-    public Object handleControllerMethod(ProceedingJoinPoint pjp) throws Throwable {
-        HttpServletRequest request=getHttpServletRequest();
-        StringBuffer requestUrl = request.getRequestURL();
-        log.info("HttpAspect filter start,requestURL:"+requestUrl);
-        //获取参数
-        Object[] objs = pjp.getArgs();
-        for (Object obj:objs){
-            log.info("参数:"+obj);
-        }
-        //获取返回对象
-        Object object = pjp.proceed();
-        log.info("获得返回对象 :{}",object);
-        log.info("HttpAspect handleControllerMethod filter end");
-        return pjp.proceed();//代理方法的返回值
-    }
 }

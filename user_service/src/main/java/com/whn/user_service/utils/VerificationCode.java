@@ -115,6 +115,8 @@ public class VerificationCode {
      */
     public Boolean compareCode(String key, String code) {
         String redisSaveCode = redisOperator.get(key);
+        System.out.println(key);
+        System.out.println(redisSaveCode);
         if (redisSaveCode == null||redisSaveCode.isBlank()) {
             return false;
         }else {
